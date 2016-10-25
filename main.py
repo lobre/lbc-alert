@@ -87,7 +87,7 @@ class CarParser:
             print("Connection error")
             sys.exit(1)
 
-        data = r.text
+        data = r.text.encode('utf-8')
 
         soup = BeautifulSoup(data, "html.parser")
 
@@ -117,6 +117,8 @@ class CarParser:
 
         if self.notify:
             self.__notify()
+        else:
+            print("No new car")
 
         with open(HASH_FILE, 'w+', encoding='utf-8') as outfile:
             json.dump(self.hash, outfile)
@@ -129,14 +131,14 @@ class CarParser:
             print("Connection error")
             sys.exit(1)
 
-        data = r.text
+        data = r.text.encode('utf-8')
         soup = BeautifulSoup(data, "lxml")
 
         grid = soup.select("section.adview_main")[0]
 
         milage = grid.find_all("div", attrs={'class': 'line'})[6].find('h2').find('span', attrs={'class': 'value'}).get_text(strip=True)
         year = grid.find_all("div", attrs={'class': 'line'})[5].find('h2').find('span', attrs={'class': 'value'}).get_text(strip=True)
-        description = str(grid.find_all("p", attrs={'itemprop': 'description'})[0])
+        description = grid.find_all("p", attrs={'itemprop': 'description'})[0]
 
         car.milage = milage
         car.year = year
@@ -150,7 +152,7 @@ class CarParser:
 
         # print
         for car in self.notify:
-            print("New car: {}".format(car.title))
+            print(car.title.encode('utf-8'))
     
 car_parser = CarParser(settings["url"])
 car_parser.parse()
