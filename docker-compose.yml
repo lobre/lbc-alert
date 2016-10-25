@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  app:
+    build: "."
+    container_name: "lbc"
+    volumes:
+      - ".:/usr/src/app"

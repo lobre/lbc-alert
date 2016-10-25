@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Le bon coin alerte</title>
+</head>
+<body>
+  <h1>Nouvelles voitures</h1>
+  {% for car in cars %}
+  <div class="car">
+    {% if car.image is not none %}
+    <img src="{{ car.image }}" alt="{{ car.title }}">
+    {% endif %}
+    <h2><a href="{{ car.link }}">{{ car.title }}</a></h2>
+    <h3>Informations</h3> 
+    <ul>
+      <li>{{ car.date }}</li>
+      <li>{{ car.location }}</li>
+      <li>{{ car.price }}</li>
+      <li>{{ car.milage }}</li>
+      <li>{{ car.year }}</li>
+    </ul>
+    <h4>Description</h4>
+    <p>{{ car.description }}</p>
+  </div>
+  <hr>
+  {% endfor %}
+</body>
+</html>

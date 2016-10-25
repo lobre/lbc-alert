@@ -1,0 +1,17 @@
+{
+  "url": "https://www.leboncoin.fr/voitures/offres/rhone_alpes/occasions/?th=1&q=rs&it=1&parrot=0&pe=28&rs=2013&me=50000&brd=Renault&mdl=Clio",
+  "limit": 3,
+  "use_keywords": 0,
+  "keywords": [
+    "camera",
+    "caméra"
+  ],
+  "gmail": {
+    "username": "loric.brevet@gmail.com",
+    "password": "ocz0du2p"
+  },
+  "email_subject": "Alerte voitures",
+  "notifications": [
+    "loric.brevet@gmail.com"
+  ]
+}
