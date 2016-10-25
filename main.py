@@ -152,7 +152,7 @@ class CarParser:
 
         # print
         for car in self.notify:
-            print(car)
+            print(str(car).encode('ascii', errors='ignore'))
     
 car_parser = CarParser(settings["url"])
 car_parser.parse()
