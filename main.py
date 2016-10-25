@@ -65,7 +65,7 @@ class Car:
         return hashlib.md5(key.encode('utf-8')).hexdigest()
 
     def hasAnyKeyword(self):
-        return any(keyword.lower() in self.description.lower() for keyword in settings["keywords"])
+        return any(keyword.lower() in self.description.lower() if self.description is not None else '' for keyword in settings["keywords"])
 
 class CarParser:
     def __init__(self, url):
@@ -87,7 +87,7 @@ class CarParser:
             print("Connection error")
             sys.exit(1)
 
-        data = r.text.encode('utf-8')
+        data = r.text
 
         soup = BeautifulSoup(data, "html.parser")
 
@@ -95,12 +95,12 @@ class CarParser:
 
         for _, item in zip(range(settings["limit"]), items):
 
-            title = item.section.h2.get_text().strip()
+            title = item.section.h2.string.strip()
             link = "https:" + item.get("href")
-            location = item.find('section', attrs={'class': 'item_infos'}).find_all('p')[1].get_text(strip=True)
+            location = item.find('section', attrs={'class': 'item_infos'}).find_all('p')[1].string
             location = ' '.join(location.split())
-            price = item.find('section', attrs={'class': 'item_infos'}).find('h3', attrs={'class': 'item_price'}).get_text(strip=True)
-            date = item.find('section', attrs={'class': 'item_infos'}).find('aside', attrs={'class': 'item_absolute'}).find('p', attrs={'class': 'item_supp'}).get_text(strip=True)
+            price = item.find('section', attrs={'class': 'item_infos'}).find('h3', attrs={'class': 'item_price'}).string.strip()
+            date = item.find('section', attrs={'class': 'item_infos'}).find('aside', attrs={'class': 'item_absolute'}).find('p', attrs={'class': 'item_supp'}).string.strip()
             image = item.find('div', attrs={'class': 'item_image'}).find('span', attrs={'class': 'item_imagePic'}).find('span')
             image = "https:" + image.get('data-imgsrc') if image is not None else None
 
@@ -131,14 +131,14 @@ class CarParser:
             print("Connection error")
             sys.exit(1)
 
-        data = r.text.encode('utf-8')
+        data = r.text
         soup = BeautifulSoup(data, "lxml")
 
         grid = soup.select("section.adview_main")[0]
 
-        milage = grid.find_all("div", attrs={'class': 'line'})[6].find('h2').find('span', attrs={'class': 'value'}).get_text(strip=True)
-        year = grid.find_all("div", attrs={'class': 'line'})[5].find('h2').find('span', attrs={'class': 'value'}).get_text(strip=True)
-        description = grid.find_all("p", attrs={'itemprop': 'description'})[0]
+        milage = grid.find_all("div", attrs={'class': 'line'})[6].find('h2').find('span', attrs={'class': 'value'}).string
+        year = grid.find_all("div", attrs={'class': 'line'})[5].find('h2').find('span', attrs={'class': 'value'}).string
+        description = grid.find_all("p", attrs={'itemprop': 'description'})[0].prettify()
 
         car.milage = milage
         car.year = year
@@ -152,7 +152,7 @@ class CarParser:
 
         # print
         for car in self.notify:
-            print(car.title.encode('utf-8'))
+            print(car)
     
 car_parser = CarParser(settings["url"])
 car_parser.parse()
