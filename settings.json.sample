@@ -7,11 +7,11 @@
     "caméra"
   ],
   "gmail": {
-    "username": "loric.brevet@gmail.com",
-    "password": "ocz0du2p"
+    "username": "mygmailaddress@gmail.com",
+    "password": "mygmailpassword"
   },
   "email_subject": "Alerte voitures",
   "notifications": [
-    "loric.brevet@gmail.com"
+    "myemailtoreceivenotif@gmail.com"
   ]
 }
