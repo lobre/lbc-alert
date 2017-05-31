@@ -99,7 +99,7 @@ class CarParser:
             link = "https:" + item.get("href")
             location = item.find('section', attrs={'class': 'item_infos'}).find_all('p')[1].text
             location = ' '.join(location.split())
-            price = item.find('section', attrs={'class': 'item_infos'}).find('h3', attrs={'class': 'item_price'}).string.strip()
+            price = item.find('section', attrs={'class': 'item_infos'}).find('h3', attrs={'class': 'item_price'}).text.strip()
             date = item.find('section', attrs={'class': 'item_infos'}).find('aside', attrs={'class': 'item_absolute'}).find('p', attrs={'class': 'item_supp'}).string.strip()
             image = item.find('div', attrs={'class': 'item_image'}).find('span', attrs={'class': 'item_imagePic'}).find('span')
             image = "https:" + image.get('data-imgsrc') if image is not None else None
