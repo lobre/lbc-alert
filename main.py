@@ -97,7 +97,7 @@ class CarParser:
 
             title = item.section.h2.string.strip()
             link = "https:" + item.get("href")
-            location = item.find('section', attrs={'class': 'item_infos'}).find_all('p')[1].string
+            location = item.find('section', attrs={'class': 'item_infos'}).find_all('p')[1].text
             location = ' '.join(location.split())
             price = item.find('section', attrs={'class': 'item_infos'}).find('h3', attrs={'class': 'item_price'}).string.strip()
             date = item.find('section', attrs={'class': 'item_infos'}).find('aside', attrs={'class': 'item_absolute'}).find('p', attrs={'class': 'item_supp'}).string.strip()
